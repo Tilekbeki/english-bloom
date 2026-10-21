@@ -1,0 +1,138 @@
+.directions {
+  border-top: 1px solid var(--line);
+  padding-block: 48px 62px;
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+.eyebrow {
+  margin-bottom: 13px;
+  color: var(--muted);
+}
+.section-title {
+  font-size: clamp(29px, 3vw, 39px);
+}
+.section-description {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.track {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 16px;
+  border-radius: 8px;
+}
+.vocabulary {
+  background: #e9eddc;
+}
+.grammar {
+  background: #f2e9da;
+}
+.everyday {
+  background: #ede8e3;
+}
+.track-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.track-icon {
+  font: 29px/1 var(--serif);
+}
+.pill {
+  font-size: 9px;
+  padding-inline: 9px;
+}
+h3 {
+  font: 27px/1.2 var(--serif);
+  letter-spacing: -0.035em;
+  margin-bottom: 13px;
+}
+.track > p {
+  color: #566155;
+  font-size: 13px;
+  line-height: 1.75;
+  margin-bottom: 26px;
+}
+.example {
+  margin-top: auto;
+  padding: 15px 0;
+  border-top: 1px solid #263f3226;
+}
+.example-label {
+  display: block;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.example p {
+  font-size: 12px;
+}
+.example strong {
+  font-weight: 600;
+}
+.example p span {
+  color: #566155;
+}
+.track-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-top: 1px solid #263f3226;
+  padding-top: 12px;
+  font-size: 9px;
+  color: #566155;
+}
+@media (max-width: 1000px) {
+  .track {
+    padding-inline: 18px;
+  }
+  .track-top {
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+@media (max-width: 760px) {
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .section-description br {
+    display: none;
+  }
+  .tracks {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .track {
+    padding: 23px;
+  }
+  .track-top {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .track > p {
+    max-width: 440px;
+  }
+  .directions {
+    padding-block: 35px 42px;
+  }
+}

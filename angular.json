@@ -28,8 +28,19 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "Memrise.apkg",
+                "input": "data",
+                "output": "data"
+              },
+              {
+                "glob": "sql-wasm-browser.wasm",
+                "input": "node_modules/sql.js/dist",
+                "output": "data"
               }
             ],
+            "allowedCommonJsDependencies": ["sql.js"],
             "styles": [
               "src/styles.scss"
             ]

@@ -1,62 +1,57 @@
 <section aria-labelledby="vocabulary-title">
   <header class="study-intro">
     <h1 id="vocabulary-title" class="section-title study-title">Словарь</h1>
-    <p>Прочитай слово вслух и попробуй составить с ним своё предложение.</p>
+    <p>Слова и выражения из колод Memrise.</p>
   </header>
 
-  <div class="study-cards">
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>bloom</h2>
-        <span>/bluːm/</span>
+  @let loadResult = result();
+  @if (!loadResult) {
+    <p class="vocabulary-status" role="status">Загружаем словарь…</p>
+  } @else if (loadResult.kind === 'error') {
+    <p class="vocabulary-status" role="alert">Не удалось загрузить словарь Memrise.</p>
+  } @else {
+    <div class="vocabulary-filters">
+      <div class="vocabulary-filter">
+        <label for="vocabulary-search">Поиск по словарю</label>
+        <input
+          #searchInput
+          id="vocabulary-search"
+          type="search"
+          placeholder="Слово или перевод"
+          (input)="setSearch(searchInput.value)"
+        />
       </div>
-      <p class="translation">расцветать</p>
-      <p class="usage" lang="en">These flowers bloom in spring.</p>
-    </article>
+      <div class="vocabulary-filter">
+        <label for="vocabulary-deck">Колода</label>
+        <select #deckSelect id="vocabulary-deck" (change)="selectDeck(deckSelect.value)">
+          <option value="">Все колоды</option>
+          @for (deck of decks(); track deck) {
+            <option [value]="deck">{{ deck }}</option>
+          }
+        </select>
+      </div>
+    </div>
 
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>recall</h2>
-        <span>/rɪˈkɔːl/</span>
-      </div>
-      <p class="translation">вспоминать</p>
-      <p class="usage" lang="en">Can you recall the answer?</p>
-    </article>
+    @if (visibleWords().length > 0) {
+      <p class="vocabulary-status" aria-live="polite">
+        Показано {{ visibleWords().length }} из {{ filteredWords().length }}
+      </p>
+    }
 
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>review</h2>
-        <span>/rɪˈvjuː/</span>
-      </div>
-      <p class="translation">повторять, просматривать</p>
-      <p class="usage" lang="en">I review my notes every evening.</p>
-    </article>
+    <div class="study-cards">
+      @for (word of visibleWords(); track word.id) {
+        <article class="study-card">
+          <h2 [attr.lang]="word.deck === 'Китайский' ? 'zh-Hans' : 'en'">{{ word.term }}</h2>
+          <p class="translation">{{ word.translation }}</p>
+          <p class="usage">{{ word.deck }}</p>
+        </article>
+      } @empty {
+        <p class="vocabulary-status" role="status">Слова не найдены.</p>
+      }
+    </div>
 
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>focus</h2>
-        <span>/ˈfəʊkəs/</span>
-      </div>
-      <p class="translation">сосредоточиться</p>
-      <p class="usage" lang="en">A short break helps me focus.</p>
-    </article>
-
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>habit</h2>
-        <span>/ˈhæbɪt/</span>
-      </div>
-      <p class="translation">привычка</p>
-      <p class="usage" lang="en">Reading before bed is a habit.</p>
-    </article>
-
-    <article class="study-card">
-      <div class="word-heading" lang="en">
-        <h2>improve</h2>
-        <span>/ɪmˈpruːv/</span>
-      </div>
-      <p class="translation">улучшать</p>
-      <p class="usage" lang="en">I want to improve my English.</p>
-    </article>
-  </div>
+    @if (visibleWords().length < filteredWords().length) {
+      <button class="button-link load-more" type="button" (click)="showMore()">Показать ещё</button>
+    }
+  }
 </section>

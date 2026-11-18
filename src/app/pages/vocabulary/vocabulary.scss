@@ -5,16 +5,52 @@
   --study-card-background: #e9eddc;
 }
 
-.word-heading {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 12px;
+.vocabulary-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 240px);
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
-.word-heading span {
-  font-size: 13px;
-  color: #566155;
+.vocabulary-filter {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.vocabulary-filters input,
+.vocabulary-filters select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.vocabulary-status {
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.study-card {
+  overflow-wrap: anywhere;
+}
+
+.load-more {
+  margin-top: 24px;
+  border: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .vocabulary-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (min-width: 960px) {

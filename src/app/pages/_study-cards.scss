@@ -1,0 +1,38 @@
+.study-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.study-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--study-card-background);
+}
+
+.study-card h2 {
+  font: 400 clamp(25px, 3.4vw, 34px) / 1.15 var(--serif);
+  letter-spacing: -0.025em;
+}
+
+.study-card .translation {
+  font-weight: 600;
+}
+
+.study-card .usage {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: #566155;
+}
+
+@media (max-width: 650px) {
+  .study-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

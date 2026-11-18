@@ -24,12 +24,23 @@ nav {
   gap: 30px;
   font-size: 13px;
 }
-nav a {
-  text-decoration: none;
+nav button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+
   &:hover {
     text-decoration: underline;
   }
 }
+
+.menu_active {
+  text-decoration: underline;
+}
+
 .header-note {
   color: var(--muted);
   font: italic 14px var(--serif);

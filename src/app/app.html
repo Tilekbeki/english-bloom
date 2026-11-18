@@ -1,8 +1,12 @@
 <a class="skip-link" href="#main">Перейти к содержимому</a>
-<app-header />
-<main id="main">
-  <app-hero />
-  <app-learning-tracks />
-  <app-word-of-day />
+<app-header [onPageSelect]="onPageSelect" [menuItems]="menuItems" [currentPage]="currentPage" />
+<main id="main" class="container">
+  @switch(currentPage) {
+    @case('mainPage'){<app-main />}
+    @case('Rules'){<app-rules />}
+    @case('Vocabulary'){<app-vocabulary />}
+    @case('Phrases'){<app-phrases />}
+    @default{<p>404</p>}
+  }
 </main>
 <app-footer />

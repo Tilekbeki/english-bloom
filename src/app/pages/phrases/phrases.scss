@@ -1,0 +1,6 @@
+@use '../study-page';
+@use '../study-cards';
+
+:host {
+  --study-card-background: #ede8e3;
+}

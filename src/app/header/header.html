@@ -4,9 +4,11 @@
     <span lang="en">english bloom<span class="brand-dot">.</span></span>
   </a>
   <nav aria-label="Основная навигация">
-    <a href="#how-it-works">Как это работает</a>
-    <a href="#example-card">Карточка слова</a>
-    <a href="#about">О проекте</a>
+    @for (menuItem of menuItems(); track menuItem.id) {
+      <button [class.menu_active]="currentPage() === menuItem.page" type="button" (click)="onPageSelect()(menuItem.id, menuItem.page)">
+        {{ menuItem.title }}
+      </button>
+    }
   </nav>
   <span class="header-note" lang="en">A little review, every day.</span>
 </header>

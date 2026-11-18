@@ -1,0 +1,39 @@
+@use '../study-page';
+
+.rule-list {
+  display: grid;
+  gap: 16px;
+}
+
+.rule {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 4vw, 48px);
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.rule h2 {
+  margin-bottom: 8px;
+  font: 400 clamp(24px, 3.2vw, 32px) / 1.15 var(--serif);
+}
+
+.rule p {
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+.rule-examples {
+  margin: 0;
+  padding: 14px 18px 14px 34px;
+  border-radius: 6px;
+  background: #f2e9da;
+}
+
+@media (max-width: 650px) {
+  .rule {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

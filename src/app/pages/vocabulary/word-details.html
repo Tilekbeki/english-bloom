@@ -1,0 +1,24 @@
+@let loadResult = result();
+@if (!loadResult) {
+  <p role="status">Загружаем слово…</p>
+} @else if (loadResult.failed) {
+  <p role="alert">Не удалось загрузить словарь Memrise.</p>
+} @else {
+  @if (word(); as currentWord) {
+    <article class="word-details">
+      <h2 [attr.lang]="currentWord.deck === 'Китайский' ? 'zh-Hans' : 'en'">
+        {{ currentWord.term }}
+      </h2>
+      <p class="translation">{{ currentWord.translation }}</p>
+      <p class="deck">{{ currentWord.deck }}</p>
+      @if (nextWord(); as next) {
+        <a [routerLink]="['/vocabulary', next.id]" queryParamsHandling="preserve">
+          Следующее слово
+        </a>
+      }
+    </article>
+  } @else {
+    <h2>Слово не найдено</h2>
+    <p>Проверь адрес или выбери слово из списка.</p>
+  }
+}

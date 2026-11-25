@@ -1,12 +1,6 @@
-<a class="skip-link" href="#main">Перейти к содержимому</a>
-<app-header [onPageSelect]="onPageSelect" [menuItems]="menuItems" [currentPage]="currentPage" />
+<a class="skip-link" [href]="currentUrl() + '#main'">Перейти к содержимому</a>
+<app-header [menuItems]="menuItems" />
 <main id="main" class="container">
-  @switch(currentPage) {
-    @case('mainPage'){<app-main />}
-    @case('Rules'){<app-rules />}
-    @case('Vocabulary'){<app-vocabulary />}
-    @case('Phrases'){<app-phrases />}
-    @default{<p>404</p>}
-  }
+  <router-outlet />
 </main>
-<app-footer />
+<app-footer [currentUrl]="currentUrl()" />

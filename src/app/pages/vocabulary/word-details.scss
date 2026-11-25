@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.word-details {
+  display: grid;
+  gap: 14px;
+  padding: clamp(20px, 4vw, 40px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #e9eddc;
+  overflow-wrap: anywhere;
+}
+
+h2 {
+  font: 400 clamp(30px, 5vw, 54px) / 1.15 var(--serif);
+}
+
+.translation {
+  font-size: 20px;
+}
+
+.deck {
+  color: var(--muted);
+}

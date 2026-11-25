@@ -1,14 +1,27 @@
-<header class="container header">
-  <a class="brand" href="#top" aria-label="English Bloom — главная">
+<header id="top" class="container header">
+  <a class="brand" routerLink="/" aria-label="English Bloom — главная">
     <img src="favicon.svg" width="35" height="35" alt="" />
     <span lang="en">english bloom<span class="brand-dot">.</span></span>
   </a>
   <nav aria-label="Основная навигация">
     @for (menuItem of menuItems(); track menuItem.id) {
-      <button [class.menu_active]="currentPage() === menuItem.page" type="button" (click)="onPageSelect()(menuItem.id, menuItem.page)">
-        {{ menuItem.title }}
-      </button>
+      <a
+        [routerLink]="menuItem.path"
+        routerLinkActive="menu_active"
+        [routerLinkActiveOptions]="{
+          paths: menuItem.path === '/' ? 'exact' : 'subset',
+          queryParams: 'ignored',
+          matrixParams: 'ignored',
+          fragment: 'ignored',
+        }"
+        ariaCurrentWhenActive="page"
+        >{{ menuItem.title }}</a
+      >
     }
   </nav>
-  <span class="header-note" lang="en">A little review, every day.</span>
+  @if (session.signedIn()) {
+    <button class="session-action" type="button" (click)="signOut()">Выйти</button>
+  } @else {
+    <a class="session-action" routerLink="/login">Войти</a>
+  }
 </header>

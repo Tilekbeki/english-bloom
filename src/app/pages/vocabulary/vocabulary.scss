@@ -1,7 +1,7 @@
-@use '../study-page';
 @use '../study-cards';
 
 :host {
+  display: block;
   --study-card-background: #e9eddc;
 }
 

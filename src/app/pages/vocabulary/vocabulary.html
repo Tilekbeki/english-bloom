@@ -1,57 +1,54 @@
-<section aria-labelledby="vocabulary-title">
-  <header class="study-intro">
-    <h1 id="vocabulary-title" class="section-title study-title">Словарь</h1>
-    <p>Слова и выражения из колод Memrise.</p>
-  </header>
-
-  @let loadResult = result();
-  @if (!loadResult) {
-    <p class="vocabulary-status" role="status">Загружаем словарь…</p>
-  } @else if (loadResult.kind === 'error') {
-    <p class="vocabulary-status" role="alert">Не удалось загрузить словарь Memrise.</p>
-  } @else {
-    <div class="vocabulary-filters">
-      <div class="vocabulary-filter">
-        <label for="vocabulary-search">Поиск по словарю</label>
-        <input
-          #searchInput
-          id="vocabulary-search"
-          type="search"
-          placeholder="Слово или перевод"
-          (input)="setSearch(searchInput.value)"
-        />
-      </div>
-      <div class="vocabulary-filter">
-        <label for="vocabulary-deck">Колода</label>
-        <select #deckSelect id="vocabulary-deck" (change)="selectDeck(deckSelect.value)">
-          <option value="">Все колоды</option>
-          @for (deck of decks(); track deck) {
-            <option [value]="deck">{{ deck }}</option>
-          }
-        </select>
-      </div>
+@let loadResult = result();
+@if (!loadResult) {
+  <p class="vocabulary-status" role="status">Загружаем словарь…</p>
+} @else if (loadResult.kind === 'error') {
+  <p class="vocabulary-status" role="alert">Не удалось загрузить словарь Memrise.</p>
+} @else {
+  <div class="vocabulary-filters">
+    <div class="vocabulary-filter">
+      <label for="vocabulary-search">Поиск по словарю</label>
+      <input
+        #searchInput
+        id="vocabulary-search"
+        type="search"
+        placeholder="Слово или перевод"
+        [value]="q()"
+        (input)="setSearch(searchInput.value)"
+      />
     </div>
-
-    @if (visibleWords().length > 0) {
-      <p class="vocabulary-status" aria-live="polite">
-        Показано {{ visibleWords().length }} из {{ filteredWords().length }}
-      </p>
-    }
-
-    <div class="study-cards">
-      @for (word of visibleWords(); track word.id) {
-        <article class="study-card">
-          <h2 [attr.lang]="word.deck === 'Китайский' ? 'zh-Hans' : 'en'">{{ word.term }}</h2>
-          <p class="translation">{{ word.translation }}</p>
-          <p class="usage">{{ word.deck }}</p>
-        </article>
-      } @empty {
-        <p class="vocabulary-status" role="status">Слова не найдены.</p>
-      }
+    <div class="vocabulary-filter">
+      <label for="vocabulary-deck">Колода</label>
+      <select #deckSelect id="vocabulary-deck" (change)="selectDeck(deckSelect.value)">
+        <option value="" [selected]="!deck()">Все колоды</option>
+        @for (deckName of decks(); track deckName) {
+          <option [value]="deckName" [selected]="deckName === deck()">{{ deckName }}</option>
+        }
+      </select>
     </div>
+  </div>
 
-    @if (visibleWords().length < filteredWords().length) {
-      <button class="button-link load-more" type="button" (click)="showMore()">Показать ещё</button>
-    }
+  @if (visibleWords().length > 0) {
+    <p class="vocabulary-status" aria-live="polite">
+      Показано {{ visibleWords().length }} из {{ filteredWords().length }}
+    </p>
   }
-</section>
+
+  <div class="study-cards">
+    @for (word of visibleWords(); track word.id) {
+      <article class="study-card">
+        <h2 [attr.lang]="word.deck === 'Китайский' ? 'zh-Hans' : 'en'">{{ word.term }}</h2>
+        <p class="translation">{{ word.translation }}</p>
+        <p class="usage">{{ word.deck }}</p>
+        <a [routerLink]="['/vocabulary', word.id]" queryParamsHandling="preserve">
+          Открыть слово
+        </a>
+      </article>
+    } @empty {
+      <p class="vocabulary-status" role="status">Слова не найдены.</p>
+    }
+  </div>
+
+  @if (visibleWords().length < filteredWords().length) {
+    <button class="button-link load-more" type="button" (click)="showMore()">Показать ещё</button>
+  }
+}

@@ -1,46 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { Header } from './header/header';
-import { Main } from './pages/main/main';
 import { Footer } from './footer/footer';
-import {Rules} from './pages/rules/rules';
-import {Phrases} from './pages/phrases/phrases';
-import {Vocabulary} from './pages/vocabulary/vocabulary';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Main, Footer,Phrases,Vocabulary,Rules],
+  imports: [Header, RouterOutlet, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
+  private readonly router = inject(Router);
+  protected readonly currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects.split('#')[0]),
+    ),
+    { initialValue: this.router.url.split('#')[0] },
+  );
   protected readonly menuItems = [
-    {
-      id: 0,
-      title: 'Главная',
-      page: 'mainPage',
-    },
-    {
-      id: 1,
-      title: 'Словарь',
-      page: 'Vocabulary',
-    },
-    {
-      id: 2,
-      title: 'Правила',
-      page: 'Rules',
-    },
-    {
-      id: 3,
-      title: 'Фразы',
-      page: 'Phrases',
-    },
+    { id: 0, title: 'Главная', path: '/' },
+    { id: 1, title: 'Словарь', path: '/vocabulary' },
+    { id: 2, title: 'Правила', path: '/rules' },
+    { id: 3, title: 'Фразы', path: '/phrases' },
   ];
-
-  protected currentPage = 'mainPage';
-
-  protected readonly onPageSelect = (id: number, page: string): void => {
-    console.log(id, page);
-    this.currentPage = page;
-    console.log(this.currentPage, '  page');
-  };
 }

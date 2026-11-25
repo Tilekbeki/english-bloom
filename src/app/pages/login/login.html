@@ -1,0 +1,9 @@
+<section aria-labelledby="login-title">
+  <header class="study-intro">
+    <h1 id="login-title" class="section-title study-title">Учебный вход</h1>
+    <p>Войди, чтобы открыть раздел «Фразы».</p>
+  </header>
+  <button class="button-link" type="button" (click)="signIn()">
+    {{ session.signedIn() ? 'Открыть фразы' : 'Войти' }}
+  </button>
+</section>
